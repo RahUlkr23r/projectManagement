@@ -67,9 +67,26 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const token = getAccessToken();
     if (!token) return;
 
-    // Connect to WebSocket
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.hostname}:5000/ws?token=${token}`;
+    // Connect to WebSocket with environment awareness (supporting Vercel/Render deployment)
+    let wsUrl: string;
+    const customWs = import.meta.env.VITE_WS_URL as string | undefined;
+    const customApi = import.meta.env.VITE_API_URL as string | undefined;
+
+    if (customWs) {
+      wsUrl = `${customWs.replace(/\/$/, '')}/ws?token=${token}`;
+    } else if (customApi) {
+      try {
+        const parsedApi = new URL(customApi);
+        const wsProto = parsedApi.protocol === 'https:' ? 'wss:' : 'ws:';
+        wsUrl = `${wsProto}//${parsedApi.host}/ws?token=${token}`;
+      } catch {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        wsUrl = `${protocol}//${window.location.hostname}:5000/ws?token=${token}`;
+      }
+    } else {
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      wsUrl = `${protocol}//${window.location.hostname}:5000/ws?token=${token}`;
+    }
 
     const ws = new WebSocket(wsUrl);
     socketRef.current = ws;

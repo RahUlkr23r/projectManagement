@@ -5,13 +5,16 @@ import { env } from '../config/env';
 
 const REFRESH_COOKIE_NAME = 'jid';
 
-const getCookieOptions = () => ({
-  httpOnly: true,
-  secure: env.NODE_ENV === 'production',
-  sameSite: 'lax' as const,
-  maxAge: env.JWT_REFRESH_EXPIRY_DAYS * 24 * 60 * 60 * 1000,
-  path: '/',
-});
+const getCookieOptions = () => {
+  const isProd = env.NODE_ENV === 'production';
+  return {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: (isProd ? 'none' : 'lax') as 'none' | 'lax',
+    maxAge: env.JWT_REFRESH_EXPIRY_DAYS * 24 * 60 * 60 * 1000,
+    path: '/',
+  };
+};
 
 export class AuthController {
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {

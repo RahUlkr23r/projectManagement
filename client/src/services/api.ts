@@ -6,7 +6,7 @@ export const setAccessToken = (token: string | null) => {
 
 export const getAccessToken = () => accessToken;
 
-const API_SERVER = 'http://localhost:5000';
+const API_SERVER = (import.meta.env.VITE_API_URL as string) || 'http://localhost:5000';
 
 const getFullUrl = (endpoint: string): string => {
   if (endpoint.startsWith('http://') || endpoint.startsWith('https://')) {

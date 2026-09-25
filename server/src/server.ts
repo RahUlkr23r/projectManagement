@@ -15,8 +15,8 @@ const bootstrap = async (): Promise<void> => {
   const overdueJob = startOverdueTaskJob();
 
   // 3. Start HTTP Listener
-  httpServer.listen(env.PORT, () => {
-    console.log(`🚀 Server listening on http://localhost:${env.PORT} [${env.NODE_ENV}]`);
+  httpServer.listen(env.PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server listening on http://0.0.0.0:${env.PORT} [${env.NODE_ENV}]`);
     console.log(`📡 Accepting client requests from ${env.CLIENT_URL}`);
   });
 

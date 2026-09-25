@@ -5,6 +5,14 @@ An enterprise-grade full-stack platform built for internal client project manage
 
 ---
 
+### 🌐 Submission & Deployment Links
+- **Public GitHub Repository**: [https://github.com/RahUlkr23r/projectManagement](https://github.com/RahUlkr23r/projectManagement)
+- **Live Backend API & WebSockets (Render)**: [https://projectmanagement-1-srz9.onrender.com](https://projectmanagement-1-srz9.onrender.com)
+- **API Health Check**: [https://projectmanagement-1-srz9.onrender.com/api/health](https://projectmanagement-1-srz9.onrender.com/api/health)
+- **Live Frontend Application (Vercel)**: *Deployed via Vercel (connected to `client/` root)*
+
+---
+
 ## 1. Quick Start / Local Setup Instructions
 
 ### Option A: Automated Local Setup (Recommended)
